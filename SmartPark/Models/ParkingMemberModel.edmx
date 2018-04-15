@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SmartParkModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="GarageID" />
+          </Key>
+          <Property Name="GarageID" Type="int" Nullable="false" />
+          <Property Name="GarageSpaceTotal" Type="int" Nullable="false" />
+          <Property Name="GarageRerservedSpaces" Type="int" Nullable="false" />
+          <Property Name="GarageName" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ParkingMemberID" Type="int" Nullable="false" />
+          <Property Name="GarageID" Type="int" Nullable="false" />
+          <Property Name="ReservedParkingSpace" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParkingMember">
+          <Key>
+            <PropertyRef Name="ParkingMemberID" />
+          </Key>
+          <Property Name="ParkingMemberID" Type="int" Nullable="false" />
+          <Property Name="ParkingMemberName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParkingMemberCarMake" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParkingMemberCarModel" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParkingMemberCarYear" Type="int" Nullable="false" />
+          <Property Name="ParkingMemberPlate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ParkingMemberElite" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Member_Garage_Garage">
+          <End Role="Garage" Type="Self.Garage" Multiplicity="1" />
+          <End Role="Member_Garage" Type="Self.Member_Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="GarageID" />
+            </Principal>
+            <Dependent Role="Member_Garage">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Garage_ParkingMember">
+          <End Role="ParkingMember" Type="Self.ParkingMember" Multiplicity="1" />
+          <End Role="Member_Garage" Type="Self.Member_Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingMember">
+              <PropertyRef Name="ParkingMemberID" />
+            </Principal>
+            <Dependent Role="Member_Garage">
+              <PropertyRef Name="ParkingMemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartParkModelStoreContainer">
+          <EntitySet Name="Garage" EntityType="Self.Garage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Garage" EntityType="Self.Member_Garage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingMember" EntityType="Self.ParkingMember" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Member_Garage_Garage" Association="Self.FK_Member_Garage_Garage">
+            <End Role="Garage" EntitySet="Garage" />
+            <End Role="Member_Garage" EntitySet="Member_Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Garage_ParkingMember" Association="Self.FK_Member_Garage_ParkingMember">
+            <End Role="ParkingMember" EntitySet="ParkingMember" />
+            <End Role="Member_Garage" EntitySet="Member_Garage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartParkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="GarageID" />
+          </Key>
+          <Property Name="GarageID" Type="Int32" Nullable="false" />
+          <Property Name="GarageSpaceTotal" Type="Int32" Nullable="false" />
+          <Property Name="GarageRerservedSpaces" Type="Int32" Nullable="false" />
+          <Property Name="GarageName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Member_Garage" Relationship="Self.FK_Member_Garage_Garage" FromRole="Garage" ToRole="Member_Garage" />
+        </EntityType>
+        <EntityType Name="Member_Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ParkingMemberID" Type="Int32" Nullable="false" />
+          <Property Name="GarageID" Type="Int32" Nullable="false" />
+          <Property Name="ReservedParkingSpace" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Garage" Relationship="Self.FK_Member_Garage_Garage" FromRole="Member_Garage" ToRole="Garage" />
+          <NavigationProperty Name="ParkingMember" Relationship="Self.FK_Member_Garage_ParkingMember" FromRole="Member_Garage" ToRole="ParkingMember" />
+        </EntityType>
+        <EntityType Name="ParkingMember">
+          <Key>
+            <PropertyRef Name="ParkingMemberID" />
+          </Key>
+          <Property Name="ParkingMemberID" Type="Int32" Nullable="false" />
+          <Property Name="ParkingMemberName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ParkingMemberCarMake" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ParkingMemberCarModel" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ParkingMemberCarYear" Type="Int32" Nullable="false" />
+          <Property Name="ParkingMemberPlate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ParkingMemberElite" Type="Boolean" />
+          <NavigationProperty Name="Member_Garage" Relationship="Self.FK_Member_Garage_ParkingMember" FromRole="ParkingMember" ToRole="Member_Garage" />
+        </EntityType>
+        <Association Name="FK_Member_Garage_Garage">
+          <End Role="Garage" Type="Self.Garage" Multiplicity="1" />
+          <End Role="Member_Garage" Type="Self.Member_Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="GarageID" />
+            </Principal>
+            <Dependent Role="Member_Garage">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Garage_ParkingMember">
+          <End Role="ParkingMember" Type="Self.ParkingMember" Multiplicity="1" />
+          <End Role="Member_Garage" Type="Self.Member_Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingMember">
+              <PropertyRef Name="ParkingMemberID" />
+            </Principal>
+            <Dependent Role="Member_Garage">
+              <PropertyRef Name="ParkingMemberID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SmartParkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Garages" EntityType="Self.Garage" />
+          <EntitySet Name="Member_Garage" EntityType="Self.Member_Garage" />
+          <EntitySet Name="ParkingMembers" EntityType="Self.ParkingMember" />
+          <AssociationSet Name="FK_Member_Garage_Garage" Association="Self.FK_Member_Garage_Garage">
+            <End Role="Garage" EntitySet="Garages" />
+            <End Role="Member_Garage" EntitySet="Member_Garage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Garage_ParkingMember" Association="Self.FK_Member_Garage_ParkingMember">
+            <End Role="ParkingMember" EntitySet="ParkingMembers" />
+            <End Role="Member_Garage" EntitySet="Member_Garage" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartParkModelStoreContainer" CdmEntityContainer="SmartParkEntities">
+          <EntitySetMapping Name="Garages">
+            <EntityTypeMapping TypeName="SmartParkModel.Garage">
+              <MappingFragment StoreEntitySet="Garage">
+                <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+                <ScalarProperty Name="GarageSpaceTotal" ColumnName="GarageSpaceTotal" />
+                <ScalarProperty Name="GarageRerservedSpaces" ColumnName="GarageRerservedSpaces" />
+                <ScalarProperty Name="GarageName" ColumnName="GarageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Garage">
+            <EntityTypeMapping TypeName="SmartParkModel.Member_Garage">
+              <MappingFragment StoreEntitySet="Member_Garage">
+                <ScalarProperty Name="ParkingMemberID" ColumnName="ParkingMemberID" />
+                <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+                <ScalarProperty Name="ReservedParkingSpace" ColumnName="ReservedParkingSpace" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingMembers">
+            <EntityTypeMapping TypeName="SmartParkModel.ParkingMember">
+              <MappingFragment StoreEntitySet="ParkingMember">
+                <ScalarProperty Name="ParkingMemberID" ColumnName="ParkingMemberID" />
+                <ScalarProperty Name="ParkingMemberName" ColumnName="ParkingMemberName" />
+                <ScalarProperty Name="ParkingMemberCarMake" ColumnName="ParkingMemberCarMake" />
+                <ScalarProperty Name="ParkingMemberCarModel" ColumnName="ParkingMemberCarModel" />
+                <ScalarProperty Name="ParkingMemberCarYear" ColumnName="ParkingMemberCarYear" />
+                <ScalarProperty Name="ParkingMemberPlate" ColumnName="ParkingMemberPlate" />
+                <ScalarProperty Name="ParkingMemberElite" ColumnName="ParkingMemberElite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
