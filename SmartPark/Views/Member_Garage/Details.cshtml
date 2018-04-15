@@ -1,0 +1,42 @@
+﻿@model SmartPark.Models.Member_Garage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Member_Garage</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservedParkingSpace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReservedParkingSpace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Garage.GarageName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Garage.GarageName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParkingMember.ParkingMemberName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParkingMember.ParkingMemberName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

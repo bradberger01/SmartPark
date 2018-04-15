@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SmartPark.Models.Member_Garage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ReservedParkingSpace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Garage.GarageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMember.ParkingMemberName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReservedParkingSpace)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Garage.GarageName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMember.ParkingMemberName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

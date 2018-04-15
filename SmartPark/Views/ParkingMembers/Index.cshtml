@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SmartPark.Models.ParkingMember>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberCarMake)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberCarModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberCarYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberPlate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingMemberElite)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberCarMake)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberCarModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberCarYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberPlate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingMemberElite)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ParkingMemberID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ParkingMemberID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ParkingMemberID })
+        </td>
+    </tr>
+}
+
+</table>
