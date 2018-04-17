@@ -1,0 +1,18 @@
+﻿body {
+}
+
+.newBackground {
+    background-image:url(../../Content/images/On_site_Parking_Options_2.jpg);
+    background-size:100%;
+}
+
+.titleText{
+    position:relative;
+    top: -50px;
+ 
+}
+.buttonMove{
+    position:relative;
+    left: 100px;
+    top: -50px;
+}
